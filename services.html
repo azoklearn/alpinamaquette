@@ -233,6 +233,27 @@
             <a href="mailto:contact@alpina-prestige.fr"><i class="far fa-envelope"></i></a>
         </div>
     </div>
-    <script src="js/main.js"></script>
+    <script>
+        // Animation au scroll pour les éléments avec la classe .reveal
+        document.addEventListener('DOMContentLoaded', function () {
+            const reveals = document.querySelectorAll('.reveal');
+            if ('IntersectionObserver' in window && reveals.length) {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('reveal-visible');
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.15
+                });
+                reveals.forEach((el) => observer.observe(el));
+            } else {
+                // Fallback : affiche tout si IntersectionObserver non supporté
+                reveals.forEach((el) => el.classList.add('reveal-visible'));
+            }
+        });
+    </script>
 </body>
 </html>
